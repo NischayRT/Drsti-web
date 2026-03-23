@@ -178,7 +178,7 @@ export default function HomePage() {
 
         <div className="fade-up-4" style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
           <a href="#download" style={{
-            padding: '12px 28px', borderRadius: 10, fontSize: 16,
+            padding: '10px 22px', borderRadius: 10, fontSize: 18,
             background: 'var(--accent)', color: '#080808', fontWeight: 500,
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'all 0.2s',
@@ -189,11 +189,11 @@ export default function HomePage() {
             Download for Windows
           </a>
           <a href="#how" style={{
-            padding: '12px 28px', borderRadius: 10, fontSize: 16,
+            padding: '10px 22px', borderRadius: 10, fontSize: 18,
             border: '1px solid var(--border)', color: 'var(--muted)',
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'color 0.2s',
-            backdropFilter: 'blur(16px)',
+            backdropFilter: 'blur(40px)',
           }}
             onMouseEnter={e => e.target.style.color = 'var(--text)'}
             onMouseLeave={e => e.target.style.color = 'var(--muted)'}
