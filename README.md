@@ -1,9 +1,9 @@
-# FocusGuard Web
+# AttentionOS Web
 
-> The official landing page and session dashboard for FocusGuard — the AI-powered focus timer desktop app. Built with Next.js 16, deployed on Vercel, and connected to the same Supabase backend as the desktop app.
+> The official landing page and session dashboard for AttentionOS — the AI-powered focus timer desktop app. Built with Next.js 16, deployed on Vercel, and connected to the same Supabase backend as the desktop app.
 
 
-[![Vercel](https://img.shields.io/badge/deployed-Vercel-black?style=flat-square&logo=vercel)](https://focusguard-web.vercel.app)
+[![Vercel](https://img.shields.io/badge/deployed-Vercel-black?style=flat-square&logo=vercel)](https://AttentionOS-web.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-38BDF8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 [![Supabase](https://img.shields.io/badge/Supabase-shared%20project-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com)
@@ -11,16 +11,16 @@
 ---
 ## Download
 
-[![Download for Windows](https://img.shields.io/badge/Download-Windows%20Installer-0078D4?style=for-the-badge&logo=windows)](https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe)
+[![Download for Windows](https://img.shields.io/badge/Download-Windows%20Installer-0078D4?style=for-the-badge&logo=windows)](https://github.com/NischayRT/AttentionOS/releases/download/v1.0.0/AttentionOS-Setup-1.0.0.exe)
 
-[View all releases](https://github.com/NischayRT/focusguard/releases/tag/v1.0.0)
+[View all releases](https://github.com/NischayRT/AttentionOS/releases/tag/v1.0.0)
 ## What is this repository?
 
-This is the **web companion** to [FocusGuard](https://github.com/NischayRT/focusguard) — a desktop application that uses AI gaze detection to measure real focused work time.
+This is the **web companion** to [AttentionOS](https://github.com/NischayRT/AttentionOS) — a desktop application that uses AI gaze detection to measure real focused work time.
 
 This web app serves two purposes:
 
-1. **Landing page** — explains what FocusGuard is, how the AI works, what data is collected, safety guarantees, and the full technology stack. Designed to give users enough information to trust the app before downloading it.
+1. **Landing page** — explains what AttentionOS is, how the AI works, what data is collected, safety guarantees, and the full technology stack. Designed to give users enough information to trust the app before downloading it.
 
 2. **Session dashboard** — a web-based view of your focus session history. Sign in with the same Google account you use in the desktop app to see all your sessions, delete individual records, and view per-session breakdowns.
 
@@ -47,8 +47,8 @@ This web app serves two purposes:
 
 ## Live Site
 
-- **Landing page:** [focusguard-web.vercel.app](https://focusguard-web.vercel.app)
-- **Dashboard:** [focusguard-web.vercel.app/dashboard](https://focusguard-web.vercel.app/dashboard)
+- **Landing page:** [AttentionOS-web.vercel.app](https://AttentionOS-web.vercel.app)
+- **Dashboard:** [AttentionOS-web.vercel.app/dashboard](https://AttentionOS-web.vercel.app/dashboard)
 
 ---
 
@@ -56,7 +56,7 @@ This web app serves two purposes:
 
 ### Landing page
 
-- Full explanation of what FocusGuard does and how the AI works
+- Full explanation of what AttentionOS does and how the AI works
 - Detailed breakdown of the AI agent — model name, landmark indices, threshold math
 - Six documented safety and privacy guarantees
 - Complete technology stack with per-component explanations
@@ -173,8 +173,8 @@ This schema is created by the desktop app's `supabase-setup.sql`. If you are set
 
 ```bash
 # Clone
-git clone https://github.com/NischayRT/focusguard-web.git
-cd focusguard-web
+git clone https://github.com/NischayRT/AttentionOS-web.git
+cd AttentionOS-web
 
 # Install dependencies
 npm install
@@ -258,7 +258,7 @@ Use the same values as the desktop app's `renderer/.env.local` — they point to
 ## Relationship to the Desktop App
 
 ```
-focusguard (desktop)                 focusguard-web (this repo)
+AttentionOS (desktop)                 AttentionOS-web (this repo)
 ─────────────────────                ─────────────────────────────
 Electron + Next.js                   Next.js on Vercel
 Runs on your machine                 Runs in your browser
@@ -282,7 +282,7 @@ Issues and PRs welcome. The landing page content (AI explanations, safety guaran
 
 ## Related
 
-- [FocusGuard Desktop](https://github.com/NischayRT/focusguard) — the Electron app with AI gaze detection
+- [AttentionOS Desktop](https://github.com/NischayRT/AttentionOS) — the Electron app with AI gaze detection
 - [MediaPipe Face Landmarker](https://developers.google.com/mediapipe/solutions/vision/face_landmarker) — the model used for gaze detection
 - [Supabase](https://supabase.com) — auth and database
 
