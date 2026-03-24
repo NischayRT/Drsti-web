@@ -53,6 +53,13 @@ const SAFETY_POINTS = [
   },
 ]
 
+// Standard GitHub SVG Icon
+const GithubIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+  </svg>
+)
+
 const HOW_STEPS = [
   { step: '01', title: 'Start the timer', body: 'Hit play on a focus session. The webcam activates and the AI engine begins sampling.' },
   { step: '02', title: 'Frame sampling', body: 'Every 2 seconds, a JPEG frame is sent from your webcam to the local Python API at localhost:5000.' },
@@ -108,17 +115,27 @@ export default function HomePage() {
           ))}
         </div>
 
-        <a href="https://github.com/NischayRT/Focusguard" target="_blank" rel="noreferrer" style={{
-          fontSize: 14, color: 'var(--accent)', letterSpacing: '0.12em',
-          textDecoration: 'none', padding: '7px 18px',
-          border: '1px solid var(--accent)', borderRadius: 8,
-          transition: 'all 0.2s',
-        }}
-          onMouseEnter={e => { e.target.style.background = 'var(--accent)'; e.target.style.color = '#080808' }}
-          onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--accent)' }}
-        >
-          DOWNLOAD
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" title="View Source on GitHub" style={{
+            color: 'var(--muted)', display: 'flex', alignItems: 'center', transition: 'color 0.2s',
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--text)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
+          >
+            <GithubIcon />
+          </a>
+          <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" target="_blank" rel="noreferrer" style={{
+            fontSize: 14, color: 'var(--accent)', letterSpacing: '0.12em',
+            textDecoration: 'none', padding: '7px 18px',
+            border: '1px solid var(--accent)', borderRadius: 8,
+            transition: 'all 0.2s',
+          }}
+            onMouseEnter={e => { e.target.style.background = 'var(--accent)'; e.target.style.color = '#080808' }}
+            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--accent)' }}
+          >
+            DOWNLOAD
+          </a>
+        </div>
       </nav>
 
       {/* ── Hero ── */}
@@ -176,8 +193,8 @@ export default function HomePage() {
           working and when you drift — down to the second. No guesswork. No self-reporting.
         </p>
 
-        <div className="fade-up-4" style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-          <a href="#download" style={{
+        <div className="fade-up-4" style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" style={{
             padding: '10px 22px', borderRadius: 10, fontSize: 18,
             background: 'var(--accent)', color: '#080808', fontWeight: 500,
             textDecoration: 'none', letterSpacing: '0.08em',
@@ -188,9 +205,25 @@ export default function HomePage() {
           >
             Download for Windows
           </a>
+          
+          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 22px', borderRadius: 10, fontSize: 18,
+            border: '1px solid var(--border)', color: 'var(--text)', background: 'var(--surface)',
+            textDecoration: 'none', letterSpacing: '0.08em',
+            transition: 'border-color 0.2s',
+            backdropFilter: 'blur(40px)',
+          }}
+            onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--text-3)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+          >
+            <GithubIcon />
+            Source Code
+          </a>
+
           <a href="#how" style={{
             padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            border: '1px solid var(--border)', color: 'var(--muted)',
+            color: 'var(--muted)',
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'color 0.2s',
             backdropFilter: 'blur(40px)',
@@ -204,7 +237,7 @@ export default function HomePage() {
 
         {/* Stat bar */}
         <div style={{
-          marginTop: 80, display: 'flex', gap: 60,
+          marginTop: 80, display: 'flex', gap: 60, flexWrap: 'wrap', justifyContent: 'center',
           padding: '28px 48px',
           border: '1px solid var(--border)', borderRadius: 16,
           background: 'var(--surface)',
@@ -442,14 +475,25 @@ export default function HomePage() {
             Sign in with Google to save and view your session history.
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#" style={{
+            <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" style={{
               padding: '16px 40px', borderRadius: 10, fontSize: 15,
               background: 'var(--accent)', color: '#080808', fontWeight: 500,
               textDecoration: 'none', letterSpacing: '0.08em',
             }}>
               Download for Windows
             </a>
-            <Link href="/dashboard" style={{
+            
+            <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '16px 40px', borderRadius: 10, fontSize: 15,
+              border: '1px solid var(--border)', color: 'var(--text)', background: 'var(--surface)',
+              textDecoration: 'none', letterSpacing: '0.08em',
+            }}>
+              <GithubIcon />
+              Source Code
+            </a>
+
+            <Link href="dashboard" style={{
               padding: '16px 40px', borderRadius: 10, fontSize: 15,
               border: '1px solid var(--border)', color: 'var(--muted)',
               textDecoration: 'none', letterSpacing: '0.08em',
@@ -484,7 +528,12 @@ export default function HomePage() {
           Built by Nischay Reddy Thigulla · {new Date().getFullYear()}
         </div>
         <div style={{ display: 'flex', gap: 24 }}>
-          {['GitHub', 'Privacy', 'Contact'].map(l => (
+          {/* Replaced GitHub Placeholder Link with actual link */}
+          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--dim)', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={e => e.target.style.color = 'var(--text)'}
+            onMouseLeave={e => e.target.style.color = 'var(--dim)'}
+          >GitHub</a>
+          {['Privacy', 'Contact'].map(l => (
             <a key={l} href="#" style={{ fontSize: 13, color: 'var(--dim)', textDecoration: 'none', transition: 'color 0.2s' }}
               onMouseEnter={e => e.target.style.color = 'var(--muted)'}
               onMouseLeave={e => e.target.style.color = 'var(--dim)'}
