@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'The AI', href: '#ai' },
   { label: 'Safety', href: '#safety' },
   { label: 'Technology', href: '#tech' },
+  { label: 'Contact', href: '#contact' },
   { label: 'Dashboard', href: '/dashboard' },
 ]
 
@@ -53,10 +54,29 @@ const SAFETY_POINTS = [
   },
 ]
 
-// Standard GitHub SVG Icon
 const GithubIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+  </svg>
+)
+
+const LinkedinIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+  </svg>
+)
+
+const LinkIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+)
+
+const CodeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
   </svg>
 )
 
@@ -71,12 +91,41 @@ const HOW_STEPS = [
 
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false)
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [formStatus, setFormStatus] = useState('idle') // idle, submitting, success, error
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault()
+    setFormStatus('submitting')
+    
+    try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwsqVmzvhEXZiSuM3HSgZhIRmZsbehvVg95dh_hAhAm7ozief8twJAZqMkCikkrxeSH/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString()
+        })
+      })
+      
+      if (response.ok) {
+        setFormStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setFormStatus('idle'), 5000)
+      } else {
+        setFormStatus('error')
+      }
+    } catch (error) {
+      setFormStatus('error')
+      setTimeout(() => setFormStatus('idle'), 5000)
+    }
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
@@ -87,7 +136,7 @@ export default function HomePage() {
         height: 60,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 40px',
-        background: scrolled ? 'rgba(8,8,8,0.98)' : 'transparent',
+        background: scrolled ? 'var(--bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
         borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
         transition: 'all 0.3s',
@@ -106,21 +155,21 @@ export default function HomePage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
           {NAV_LINKS.map(l => (
             <a key={l.label} href={l.href} style={{
-              fontSize: 14, color: 'var(--muted)', letterSpacing: '0.06em',
+              fontSize: 14, color: 'var(--text-3)', letterSpacing: '0.06em',
               textDecoration: 'none', transition: 'color 0.2s',
             }}
               onMouseEnter={e => e.target.style.color = 'var(--text)'}
-              onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+              onMouseLeave={e => e.target.style.color = 'var(--text-3)'}
             >{l.label}</a>
           ))}
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" title="View Source on GitHub" style={{
-            color: 'var(--muted)', display: 'flex', alignItems: 'center', transition: 'color 0.2s',
+            color: 'var(--text-3)', display: 'flex', alignItems: 'center', transition: 'color 0.2s',
           }}
             onMouseEnter={e => e.currentTarget.style.color = 'var(--text)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
           >
             <GithubIcon />
           </a>
@@ -130,7 +179,7 @@ export default function HomePage() {
             border: '1px solid var(--accent)', borderRadius: 8,
             transition: 'all 0.2s',
           }}
-            onMouseEnter={e => { e.target.style.background = 'var(--accent)'; e.target.style.color = '#080808' }}
+            onMouseEnter={e => { e.target.style.background = 'var(--accent)'; e.target.style.color = 'var(--bg)' }}
             onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--accent)' }}
           >
             DOWNLOAD
@@ -156,7 +205,7 @@ export default function HomePage() {
         <div style={{
           position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)',
           width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(200,240,74,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--accent-dim) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}/>
 
@@ -168,7 +217,7 @@ export default function HomePage() {
           marginBottom: 32,
         }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', animation: 'pulse 2s infinite' }}/>
-          <span className="mono" style={{ fontSize: 12, color: 'var(--muted)', letterSpacing: '0.12em' }}>
+          <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)', letterSpacing: '0.12em' }}>
             AI GAZE DETECTION · LOCAL · PRIVATE
           </span>
         </div>
@@ -186,7 +235,7 @@ export default function HomePage() {
         </h1>
 
         <p className="fade-up-3" style={{
-          fontSize: 20, fontWeight: 300, color: 'var(--muted)',
+          fontSize: 20, fontWeight: 300, color: 'var(--text-3)',
           maxWidth: 560, lineHeight: 1.7, marginBottom: 36,
         }}>
           Focusguard uses real-time AI gaze detection to measure exactly when you're
@@ -196,11 +245,11 @@ export default function HomePage() {
         <div className="fade-up-4" style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
           <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" style={{
             padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            background: 'var(--accent)', color: '#080808', fontWeight: 500,
+            background: 'var(--accent)', color: 'var(--bg)', fontWeight: 500,
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'all 0.2s',
           }}
-            onMouseEnter={e => e.target.style.boxShadow = '0 0 32px rgba(200,240,74,0.35)'}
+            onMouseEnter={e => e.target.style.boxShadow = '0 0 32px var(--accent-dim)'}
             onMouseLeave={e => e.target.style.boxShadow = 'none'}
           >
             Download for Windows
@@ -223,13 +272,13 @@ export default function HomePage() {
 
           <a href="#how" style={{
             padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            color: 'var(--muted)',
+            color: 'var(--text-3)',
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'color 0.2s',
             backdropFilter: 'blur(40px)',
           }}
             onMouseEnter={e => e.target.style.color = 'var(--text)'}
-            onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+            onMouseLeave={e => e.target.style.color = 'var(--text-3)'}
           >
             See how it works →
           </a>
@@ -250,7 +299,7 @@ export default function HomePage() {
           ].map(({ val, label }) => (
             <div key={label} style={{ textAlign: 'center' }}>
               <div className="mono" style={{ fontSize: 28, fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>{val}</div>
-              <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 6, letterSpacing: '0.06em' }}>{label}</div>
+              <div style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 6, letterSpacing: '0.06em' }}>{label}</div>
             </div>
           ))}
         </div>
@@ -273,12 +322,12 @@ export default function HomePage() {
               background: 'var(--surface)',
               transition: 'border-color 0.2s',
             }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = '#2a2a2a'}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'}
               onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
             >
-              <div className="mono" style={{ fontSize: 12, color: 'var(--dim)', letterSpacing: '0.12em', marginBottom: 16 }}>{step}</div>
+              <div className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em', marginBottom: 16 }}>{step}</div>
               <div style={{ fontSize: 18, fontWeight: 500, color: 'var(--text)', marginBottom: 12, letterSpacing: '-0.01em' }}>{title}</div>
-              <div style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>{body}</div>
+              <div style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.7 }}>{body}</div>
             </div>
           ))}
         </div>
@@ -296,19 +345,19 @@ export default function HomePage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
             <div>
-              <p style={{ fontSize: 17, color: 'var(--muted)', lineHeight: 1.8, marginBottom: 28 }}>
+              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
                 Focusguard's AI is not a black box. It is a deterministic, rule-based system built on top of
                 MediaPipe FaceMesh — Google's open-source face landmark detection library. It does not learn
                 from your data, does not adapt over time, and does not make probabilistic inferences about
                 your emotional state or cognitive load.
               </p>
-              <p style={{ fontSize: 17, color: 'var(--muted)', lineHeight: 1.8, marginBottom: 28 }}>
+              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
                 Every two seconds while your timer is running, a single JPEG frame is captured from your
                 webcam and sent to a local Flask server running on your machine at <span className="mono" style={{ color: 'var(--text)', fontSize: 15 }}>localhost:5000</span>.
                 The server runs MediaPipe FaceMesh on the frame, which identifies 468 facial landmark
                 coordinates in normalized (0–1) space.
               </p>
-              <p style={{ fontSize: 17, color: 'var(--muted)', lineHeight: 1.8 }}>
+              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8 }}>
                 From those 468 points, Focusguard extracts three specific signals: <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head yaw</strong> (left/right
                 rotation), <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head pitch</strong> (up/down tilt), and <strong style={{ color: 'var(--text)', fontWeight: 500 }}>eye aspect ratio</strong> (detecting closed
                 eyes). If any threshold is exceeded, that second is marked as "away."
@@ -333,7 +382,7 @@ export default function HomePage() {
                 }}>
                   <div>
                     <div style={{ fontSize: 14, color: 'var(--text)', fontWeight: 500 }}>{label}</div>
-                    <div style={{ fontSize: 13, color: 'var(--dim)', marginTop: 2 }}>{note}</div>
+                    <div style={{ fontSize: 13, color: 'var(--text-4)', marginTop: 2 }}>{note}</div>
                   </div>
                   <div className="mono" style={{ fontSize: 16, color: 'var(--accent)', fontWeight: 300, flexShrink: 0, marginLeft: 24 }}>{val}</div>
                 </div>
@@ -362,8 +411,8 @@ export default function HomePage() {
                 'Infer cognitive load',
               ].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--dim)', flexShrink: 0 }}/>
-                  <span style={{ fontSize: 14, color: 'var(--muted)' }}>{item}</span>
+                  <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--text-4)', flexShrink: 0 }}/>
+                  <span style={{ fontSize: 14, color: 'var(--text-3)' }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -392,7 +441,7 @@ export default function HomePage() {
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }}/>
                 </div>
                 <div style={{ fontSize: 17, fontWeight: 500, color: 'var(--text)', marginBottom: 14, lineHeight: 1.3 }}>{title}</div>
-                <div style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.75 }}>{body}</div>
+                <div style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.75 }}>{body}</div>
               </div>
             ))}
           </div>
@@ -417,12 +466,12 @@ export default function HomePage() {
                 background: 'var(--surface)',
                 transition: 'border-color 0.2s',
               }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = '#2a2a2a'}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
               >
                 <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.12em', marginBottom: 10 }}>{role.toUpperCase()}</div>
                 <div style={{ fontSize: 20, fontWeight: 500, color: 'var(--text)', marginBottom: 12 }}>{name}</div>
-                <div style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>{detail}</div>
+                <div style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.7 }}>{detail}</div>
               </div>
             ))}
           </div>
@@ -433,7 +482,7 @@ export default function HomePage() {
             border: '1px solid var(--border)', borderRadius: 12,
             background: 'var(--surface)',
           }}>
-            <div className="mono" style={{ fontSize: 12, color: 'var(--dim)', letterSpacing: '0.12em', marginBottom: 24 }}>ARCHITECTURE FLOW</div>
+            <div className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em', marginBottom: 24 }}>ARCHITECTURE FLOW</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
               {[
                 { label: 'Webcam', sub: 'OS capture' },
@@ -448,10 +497,10 @@ export default function HomePage() {
                 <div key={label} style={{ display: 'flex', alignItems: 'center' }}>
                   <div style={{ textAlign: 'center', padding: '12px 16px' }}>
                     <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--text)' }}>{label}</div>
-                    <div className="mono" style={{ fontSize: 11, color: 'var(--dim)', marginTop: 4 }}>{sub}</div>
+                    <div className="mono" style={{ fontSize: 11, color: 'var(--text-4)', marginTop: 4 }}>{sub}</div>
                   </div>
                   {i < arr.length - 1 && (
-                    <div style={{ fontSize: 18, color: 'var(--dim)', padding: '0 4px' }}>→</div>
+                    <div style={{ fontSize: 18, color: 'var(--text-4)', padding: '0 4px' }}>→</div>
                   )}
                 </div>
               ))}
@@ -460,50 +509,107 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Download CTA ── */}
-      <section id="download" style={{
-        padding: '100px 40px', borderTop: '1px solid var(--border)',
-        textAlign: 'center',
-      }}>
-        <div style={{ maxWidth: 600, margin: '0 auto' }}>
-          <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 24 }}>GET STARTED</div>
-          <h2 style={{ fontSize: 48, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 24 }}>
-            Start measuring your focus
-          </h2>
-          <p style={{ fontSize: 17, color: 'var(--muted)', lineHeight: 1.7, marginBottom: 40 }}>
-            Download Focusguard for Windows. No subscription, no account required to use the timer.
-            Sign in with Google to save and view your session history.
-          </p>
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" style={{
-              padding: '16px 40px', borderRadius: 10, fontSize: 15,
-              background: 'var(--accent)', color: '#080808', fontWeight: 500,
-              textDecoration: 'none', letterSpacing: '0.08em',
-            }}>
-              Download for Windows
-            </a>
-            
-            <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              padding: '16px 40px', borderRadius: 10, fontSize: 15,
-              border: '1px solid var(--border)', color: 'var(--text)', background: 'var(--surface)',
-              textDecoration: 'none', letterSpacing: '0.08em',
-            }}>
-              <GithubIcon />
-              Source Code
-            </a>
+      {/* ── Contact & Connect ── */}
+      <section id="contact" style={{ padding: '100px 40px', borderTop: '1px solid var(--border)', background: 'var(--bg-2)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 60 }}>
+          
+          {/* Left: Info & Socials */}
+          <div style={{ flex: '1 1 400px' }}>
+            <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>CONNECT</div>
+            <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 20 }}>
+              Get in touch
+            </h2>
+            <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.7, marginBottom: 40 }}>
+              Have questions about the architecture? Found a bug? Just want to connect? Send a message or reach out on my socials.
+            </p>
 
-            <Link href="dashboard" style={{
-              padding: '16px 40px', borderRadius: 10, fontSize: 15,
-              border: '1px solid var(--border)', color: 'var(--muted)',
-              textDecoration: 'none', letterSpacing: '0.08em',
-            }}>
-              View Dashboard
-            </Link>
+            {/* Social Pills */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              {[
+                { icon: <LinkedinIcon />, label: "LinkedIn", link: "https://www.linkedin.com/in/nischayrt/" },
+                { icon: <GithubIcon />, label: "GitHub", link: "https://github.com/NischayRT" },
+                { icon: <CodeIcon />, label: "LeetCode", link: "https://leetcode.com/u/user0322sl/" },
+                { icon: <CodeIcon />, label: "CodeChef", link: "https://www.codechef.com/users/nischayreddy" },
+                { icon: <LinkIcon />, label: "Portfolio", link: "http://nischay-reddy.vercel.app/" },
+              ].map((pill) => (
+                <a key={pill.label} href={pill.link} target="_blank" rel="noreferrer" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  padding: '10px 16px', borderRadius: 30,
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  color: 'var(--text)', textDecoration: 'none', fontSize: 14, fontWeight: 500,
+                  transition: 'all 0.2s',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text)' }}
+                >
+                  {pill.icon}
+                  {pill.label}
+                </a>
+              ))}
+            </div>
           </div>
-          <p style={{ marginTop: 20, fontSize: 13, color: 'var(--dim)' }}>
-            Windows 10+ · ~250MB installer · Python bundled
-          </p>
+
+          {/* Right: Contact Form */}
+          <div style={{ flex: '1 1 400px' }}>
+            <form onSubmit={handleContactSubmit} style={{
+              display: 'flex', flexDirection: 'column', gap: 16,
+              padding: '36px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16
+            }}>
+              <div style={{ fontSize: 18, fontWeight: 500, color: 'var(--text)', marginBottom: 8 }}>Send a Message</div>
+              
+              <input 
+                type="text" 
+                placeholder="Name" 
+                required 
+                value={formData.name}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                style={{
+                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)',
+                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
+                }} 
+              />
+              
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                required 
+                value={formData.email}
+                onChange={e => setFormData({ ...formData, email: e.target.value })}
+                style={{
+                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)',
+                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
+                }} 
+              />
+              
+              <textarea 
+                placeholder="Message" 
+                required 
+                rows="4"
+                value={formData.message}
+                onChange={e => setFormData({ ...formData, message: e.target.value })}
+                style={{
+                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)', resize: 'vertical',
+                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
+                }} 
+              />
+              
+              <button 
+                type="submit" 
+                disabled={formStatus === 'submitting'}
+                style={{
+                  padding: '16px', borderRadius: 8, fontSize: 15, marginTop: 8, cursor: formStatus === 'submitting' ? 'default' : 'pointer',
+                  background: 'var(--accent)', color: 'var(--bg)', fontWeight: 600, letterSpacing: '0.08em',
+                  border: 'none', transition: 'opacity 0.2s', opacity: formStatus === 'submitting' ? 0.7 : 1
+                }}
+              >
+                {formStatus === 'submitting' ? 'SENDING...' : 'SEND MESSAGE'}
+              </button>
+
+              {formStatus === 'success' && <div style={{ fontSize: 13, color: 'var(--accent)', textAlign: 'center', marginTop: 4 }}>✓ Message sent successfully!</div>}
+              {formStatus === 'error' && <div style={{ fontSize: 13, color: 'var(--red)', textAlign: 'center', marginTop: 4 }}>Failed to send. Please try again later.</div>}
+            </form>
+          </div>
+
         </div>
       </section>
 
@@ -522,21 +628,20 @@ export default function HomePage() {
           }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }}/>
           </div>
-          <span className="mono" style={{ fontSize: 12, color: 'var(--dim)', letterSpacing: '0.12em' }}>Focusguard</span>
+          <span className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em' }}>Focusguard</span>
         </div>
-        <div style={{ fontSize: 13, color: 'var(--dim)' }}>
+        <div style={{ fontSize: 13, color: 'var(--text-4)' }}>
           Built by Nischay Reddy Thigulla · {new Date().getFullYear()}
         </div>
         <div style={{ display: 'flex', gap: 24 }}>
-          {/* Replaced GitHub Placeholder Link with actual link */}
-          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--dim)', textDecoration: 'none', transition: 'color 0.2s' }}
+          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }}
             onMouseEnter={e => e.target.style.color = 'var(--text)'}
-            onMouseLeave={e => e.target.style.color = 'var(--dim)'}
+            onMouseLeave={e => e.target.style.color = 'var(--text-4)'}
           >GitHub</a>
           {['Privacy', 'Contact'].map(l => (
-            <a key={l} href="#" style={{ fontSize: 13, color: 'var(--dim)', textDecoration: 'none', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--muted)'}
-              onMouseLeave={e => e.target.style.color = 'var(--dim)'}
+            <a key={l} href={l === 'Contact' ? '#contact' : '#'} style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={e => e.target.style.color = 'var(--text)'}
+              onMouseLeave={e => e.target.style.color = 'var(--text-4)'}
             >{l}</a>
           ))}
         </div>
