@@ -25,7 +25,7 @@ const SAFETY_POINTS = [
   {
     title: 'No video is ever stored',
     icon: '○',
-    body: 'Focusguard never saves, uploads, or transmits your webcam feed. Frames are captured, analyzed in under 200ms, then discarded immediately. Nothing persists beyond the analysis window.',
+    body: 'Drsti never saves, uploads, or transmits your webcam feed. Frames are captured, analyzed in under 200ms, then discarded immediately. Nothing persists beyond the analysis window.',
   },
   {
     title: 'Entirely local inference',
@@ -35,7 +35,7 @@ const SAFETY_POINTS = [
   {
     title: 'No biometric data stored',
     icon: '○',
-    body: 'Focusguard does not store facial geometry, embeddings, or any biometric identifiers. The only data saved per session is: duration, focused seconds, away seconds, and a per-minute focus percentage — no face data.',
+    body: 'Drsti does not store facial geometry, embeddings, or any biometric identifiers. The only data saved per session is: duration, focused seconds, away seconds, and a per-minute focus percentage — no face data.',
   },
   {
     title: 'Open detection thresholds',
@@ -66,13 +66,6 @@ const LinkedinIcon = () => (
   </svg>
 )
 
-const LinkIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-  </svg>
-)
-
 const CodeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="16 18 22 12 16 6"></polyline>
@@ -92,7 +85,7 @@ const HOW_STEPS = [
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [formStatus, setFormStatus] = useState('idle') // idle, submitting, success, error
+  const [formStatus, setFormStatus] = useState('idle') 
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40)
@@ -105,7 +98,7 @@ export default function HomePage() {
     setFormStatus('submitting')
     
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwsqVmzvhEXZiSuM3HSgZhIRmZsbehvVg95dh_hAhAm7ozief8twJAZqMkCikkrxeSH/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbz3OPky4HfShXveekQkjmnTXDW8zIwupVhC5Nk7fKVmSjiiyP0v4_HqewNz9pMfbYTPRw/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
@@ -131,11 +124,9 @@ export default function HomePage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
 
       {/* ── Navbar ── */}
-      <nav style={{
+      <nav className="nav-pad" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        height: 60,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 40px',
+        height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? 'var(--bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
         borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
@@ -143,16 +134,15 @@ export default function HomePage() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
-            width: 28, height: 28, borderRadius: 7,
-            border: '1px solid var(--accent)',
+            width: 28, height: 28, borderRadius: 7, border: '1px solid var(--accent)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }}/>
           </div>
-          <span style={{ fontSize: 16, fontWeight: 500, letterSpacing: '0.14em', color: 'var(--text)' }}>Focusguard</span>
+          <span style={{ fontSize: 16, fontWeight: 500, letterSpacing: '0.14em', color: 'var(--text)' }}>Drsti</span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+        <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
           {NAV_LINKS.map(l => (
             <a key={l.label} href={l.href} style={{
               fontSize: 14, color: 'var(--text-3)', letterSpacing: '0.06em',
@@ -165,7 +155,7 @@ export default function HomePage() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" title="View Source on GitHub" style={{
+          <a className="hide-on-mobile" href="https://github.com/NischayRT/Drsti" target="_blank" rel="noreferrer" title="View Source on GitHub" style={{
             color: 'var(--text-3)', display: 'flex', alignItems: 'center', transition: 'color 0.2s',
           }}
             onMouseEnter={e => e.currentTarget.style.color = 'var(--text)'}
@@ -173,7 +163,7 @@ export default function HomePage() {
           >
             <GithubIcon />
           </a>
-          <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" target="_blank" rel="noreferrer" style={{
+          <a href="https://github.com/NischayRT/Drsti/releases/download/v1.0.0/Drsti-Setup-1.0.0.exe" target="_blank" rel="noreferrer" style={{
             fontSize: 14, color: 'var(--accent)', letterSpacing: '0.12em',
             textDecoration: 'none', padding: '7px 18px',
             border: '1px solid var(--accent)', borderRadius: 8,
@@ -188,108 +178,61 @@ export default function HomePage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section style={{
+      <section className="hero-pad" style={{
         minHeight: '100vh', display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        padding: '120px 40px 80px', textAlign: 'center',
+        alignItems: 'center', justifyContent: 'center', textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>
-        {/* Grid background */}
-        <div style={{
-          position: 'absolute', inset: 0, opacity: 0.04,
-          backgroundImage: 'linear-gradient(var(--text) 1px, transparent 1px), linear-gradient(90deg, var(--text) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}/>
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.04, backgroundImage: 'linear-gradient(var(--text) 1px, transparent 1px), linear-gradient(90deg, var(--text) 1px, transparent 1px)', backgroundSize: '60px 60px' }}/>
+        <div style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, var(--accent-dim) 0%, transparent 70%)', pointerEvents: 'none' }}/>
 
-        {/* Glow */}
-        <div style={{
-          position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)',
-          width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--accent-dim) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}/>
-
-        <div className="fade-up-1" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8,
-          padding: '6px 16px', borderRadius: 20,
-          border: '1px solid var(--border)',
-          background: 'var(--surface)',
-          marginBottom: 32,
-        }}>
-          <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', animation: 'pulse 2s infinite' }}/>
+        <div className="fade-up-1" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 20, border: '1px solid var(--border)', background: 'var(--surface)', marginBottom: 32 }}>
+          <div style={{ minWidth: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', animation: 'pulse 2s infinite' }}/>
           <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)', letterSpacing: '0.12em' }}>
-            AI GAZE DETECTION · LOCAL · PRIVATE
-          </span>
+  AI GAZE DETECTION 
+  <br className="min-[426px]:hidden" /> {/* Hides the break as soon as the screen is 426px or wider */}
+  · LOCAL · PRIVATE
+</span>
         </div>
 
         <h1 className="fade-up-2" style={{
-          fontSize: 'clamp(48px, 8vw, 96px)',
-          fontWeight: 300, lineHeight: 1.05,
-          letterSpacing: '-0.03em',
-          color: 'var(--text)',
-          maxWidth: 900,
-          marginBottom: 28,
+          fontSize: 'clamp(36px, 8vw, 96px)', fontWeight: 300, lineHeight: 1.05,
+          letterSpacing: '-0.03em', color: 'var(--text)', maxWidth: 900, marginBottom: 28,
         }}>
           Your focus,<br/>
           <span style={{ color: 'var(--accent)' }}>under surveillance.</span>
         </h1>
 
-        <p className="fade-up-3" style={{
-          fontSize: 20, fontWeight: 300, color: 'var(--text-3)',
-          maxWidth: 560, lineHeight: 1.7, marginBottom: 36,
-        }}>
-          Focusguard uses real-time AI gaze detection to measure exactly when you're
+        <p className="fade-up-3" style={{ fontSize: 18, fontWeight: 300, color: 'var(--text-3)', maxWidth: 560, lineHeight: 1.7, marginBottom: 36 }}>
+          Drsti uses real-time AI gaze detection to measure exactly when you're
           working and when you drift — down to the second. No guesswork. No self-reporting.
         </p>
 
-        <div className="fade-up-4" style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <a href="https://github.com/NischayRT/focusguard/releases/download/v1.0.0/FocusGuard-Setup-1.0.0.exe" style={{
-            padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            background: 'var(--accent)', color: 'var(--bg)', fontWeight: 500,
-            textDecoration: 'none', letterSpacing: '0.08em',
-            transition: 'all 0.2s',
-          }}
-            onMouseEnter={e => e.target.style.boxShadow = '0 0 32px var(--accent-dim)'}
-            onMouseLeave={e => e.target.style.boxShadow = 'none'}
-          >
+        <div className="fade-up-4 flex-col-mobile" style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <a href="https://github.com/NischayRT/Drsti/releases/download/v1.0.0/Drsti-Setup-1.0.0.exe" style={{
+            padding: '12px 24px', borderRadius: 10, fontSize: 16, background: 'var(--accent)', color: 'var(--bg)', fontWeight: 500, textDecoration: 'none', letterSpacing: '0.08em', transition: 'all 0.2s',
+          }} onMouseEnter={e => e.target.style.boxShadow = '0 0 32px var(--accent-dim)'} onMouseLeave={e => e.target.style.boxShadow = 'none'}>
             Download for Windows
           </a>
           
-          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            border: '1px solid var(--border)', color: 'var(--text)', background: 'var(--surface)',
-            textDecoration: 'none', letterSpacing: '0.08em',
-            transition: 'border-color 0.2s',
-            backdropFilter: 'blur(40px)',
-          }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--text-3)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
-          >
+          <a href="https://github.com/NischayRT/Drsti" target="_blank" rel="noreferrer" style={{
+            display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center', padding: '12px 24px', borderRadius: 10, fontSize: 16, border: '1px solid var(--border)', color: 'var(--text)', background: 'var(--surface)', textDecoration: 'none', letterSpacing: '0.08em', transition: 'border-color 0.2s', backdropFilter: 'blur(40px)',
+          }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--text-3)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
             <GithubIcon />
             Source Code
           </a>
 
           <a href="#how" style={{
-            padding: '10px 22px', borderRadius: 10, fontSize: 18,
-            color: 'var(--text-3)',
-            textDecoration: 'none', letterSpacing: '0.08em',
-            transition: 'color 0.2s',
-            backdropFilter: 'blur(40px)',
-          }}
-            onMouseEnter={e => e.target.style.color = 'var(--text)'}
-            onMouseLeave={e => e.target.style.color = 'var(--text-3)'}
-          >
+            padding: '12px 24px', borderRadius: 10, fontSize: 16, color: 'var(--text-3)', textDecoration: 'none', letterSpacing: '0.08em', transition: 'color 0.2s', backdropFilter: 'blur(40px)',
+          }} onMouseEnter={e => e.target.style.color = 'var(--text)'} onMouseLeave={e => e.target.style.color = 'var(--text-3)'}>
             See how it works →
           </a>
         </div>
 
         {/* Stat bar */}
-        <div style={{
+        <div className="stat-row" style={{
           marginTop: 80, display: 'flex', gap: 60, flexWrap: 'wrap', justifyContent: 'center',
-          padding: '28px 48px',
-          border: '1px solid var(--border)', borderRadius: 16,
-          background: 'var(--surface)',
+          padding: '28px 48px', border: '1px solid var(--border)', borderRadius: 16, background: 'var(--surface)',
         }}>
           {[
             { val: '2s', label: 'Analysis interval' },
@@ -306,25 +249,19 @@ export default function HomePage() {
       </section>
 
       {/* ── How It Works ── */}
-      <section id="how" style={{ padding: '100px 40px', maxWidth: 1100, margin: '0 auto' }}>
+      <section id="how" className="section-pad" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ marginBottom: 64 }}>
           <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>HOW IT WORKS</div>
-          <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, maxWidth: 500 }}>
+          <h2 style={{ fontSize: 40, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, maxWidth: 500 }}>
             Six steps from<br/>webcam to insight
           </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 2 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 2 }}>
           {HOW_STEPS.map(({ step, title, body }) => (
             <div key={step} style={{
-              padding: '32px',
-              border: '1px solid var(--border)',
-              background: 'var(--surface)',
-              transition: 'border-color 0.2s',
-            }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
-            >
+              padding: '32px', border: '1px solid var(--border)', background: 'var(--surface)', transition: 'border-color 0.2s',
+            }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
               <div className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em', marginBottom: 16 }}>{step}</div>
               <div style={{ fontSize: 18, fontWeight: 500, color: 'var(--text)', marginBottom: 12, letterSpacing: '-0.01em' }}>{title}</div>
               <div style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.7 }}>{body}</div>
@@ -334,33 +271,25 @@ export default function HomePage() {
       </section>
 
       {/* ── The AI ── */}
-      <section id="ai" style={{ padding: '100px 40px', borderTop: '1px solid var(--border)' }}>
+      <section id="ai" className="section-pad" style={{ borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 64 }}>
             <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>THE AI AGENT</div>
-            <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, maxWidth: 600 }}>
+            <h2 style={{ fontSize: 40, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, maxWidth: 600 }}>
               What is the AI actually doing?
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
+          <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
             <div>
-              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
-                Focusguard's AI is not a black box. It is a deterministic, rule-based system built on top of
-                MediaPipe FaceMesh — Google's open-source face landmark detection library. It does not learn
-                from your data, does not adapt over time, and does not make probabilistic inferences about
-                your emotional state or cognitive load.
+              <p style={{ fontSize: 16, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
+                Drsti's AI is not a black box. It is a deterministic, rule-based system built on top of MediaPipe FaceMesh — Google's open-source face landmark detection library. It does not learn from your data, does not adapt over time, and does not make probabilistic inferences.
               </p>
-              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
-                Every two seconds while your timer is running, a single JPEG frame is captured from your
-                webcam and sent to a local Flask server running on your machine at <span className="mono" style={{ color: 'var(--text)', fontSize: 15 }}>localhost:5000</span>.
-                The server runs MediaPipe FaceMesh on the frame, which identifies 468 facial landmark
-                coordinates in normalized (0–1) space.
+              <p style={{ fontSize: 16, color: 'var(--text-3)', lineHeight: 1.8, marginBottom: 28 }}>
+                Every two seconds while your timer is running, a single JPEG frame is captured from your webcam and sent to a local Flask server running on your machine at <span className="mono" style={{ color: 'var(--text)', fontSize: 14 }}>localhost:5000</span>. The server runs MediaPipe FaceMesh on the frame, which identifies 468 facial landmark coordinates in normalized (0–1) space.
               </p>
-              <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.8 }}>
-                From those 468 points, Focusguard extracts three specific signals: <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head yaw</strong> (left/right
-                rotation), <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head pitch</strong> (up/down tilt), and <strong style={{ color: 'var(--text)', fontWeight: 500 }}>eye aspect ratio</strong> (detecting closed
-                eyes). If any threshold is exceeded, that second is marked as "away."
+              <p style={{ fontSize: 16, color: 'var(--text-3)', lineHeight: 1.8 }}>
+                From those 468 points, Drsti extracts three specific signals: <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head yaw</strong> (left/right rotation), <strong style={{ color: 'var(--text)', fontWeight: 500 }}>head pitch</strong> (up/down tilt), and <strong style={{ color: 'var(--text)', fontWeight: 500 }}>eye aspect ratio</strong> (detecting closed eyes). If any threshold is exceeded, that second is marked as "away."
               </p>
             </div>
 
@@ -372,12 +301,9 @@ export default function HomePage() {
                 { label: 'No face detected', val: '—', note: 'Face not found in frame = away' },
                 { label: 'Sample interval', val: '2s', note: 'One frame analyzed every 2 seconds' },
                 { label: 'Rolling window', val: '30 frames', note: 'Score based on last 60 seconds' },
-                { label: 'Inference time', val: '< 200ms', note: 'Per frame, on CPU, no GPU needed' },
-                { label: 'Model size', val: '~29MB', note: 'face_landmarker.task, float16' },
               ].map(({ label, val, note }) => (
                 <div key={label} style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '14px 18px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px',
                   background: 'var(--surface)', border: '1px solid var(--border)',
                 }}>
                   <div>
@@ -390,26 +316,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* What it cannot do */}
-          <div style={{
-            marginTop: 60, padding: '36px 40px',
-            border: '1px solid var(--border)', borderRadius: 12,
-            background: 'var(--surface)',
-          }}>
+          <div style={{ marginTop: 60, padding: '36px 40px', border: '1px solid var(--border)', borderRadius: 12, background: 'var(--surface)' }}>
             <div style={{ fontSize: 18, fontWeight: 500, marginBottom: 20, color: 'var(--text)' }}>
-              What Focusguard's AI cannot and does not do
+              What Drsti's AI cannot and does not do
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
-              {[
-                'Read emotions or expressions',
-                'Identify who you are',
-                'Store or transmit video',
-                'Train on your data',
-                'Access any other app',
-                'Run when timer is off',
-                'Connect to the internet',
-                'Infer cognitive load',
-              ].map(item => (
+              {['Read emotions or expressions', 'Identify who you are', 'Store or transmit video', 'Train on your data', 'Access any other app', 'Run when timer is off', 'Connect to the internet', 'Infer cognitive load'].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--text-4)', flexShrink: 0 }}/>
                   <span style={{ fontSize: 14, color: 'var(--text-3)' }}>{item}</span>
@@ -421,22 +333,16 @@ export default function HomePage() {
       </section>
 
       {/* ── Safety ── */}
-      <section id="safety" style={{ padding: '100px 40px', borderTop: '1px solid var(--border)', background: 'var(--surface)' }}>
+      <section id="safety" className="section-pad" style={{ borderTop: '1px solid var(--border)', background: 'var(--surface)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 64 }}>
             <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>SAFETY & PRIVACY</div>
-            <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-              Six safety guarantees
-            </h2>
+            <h2 style={{ fontSize: 40, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15 }}>Six safety guarantees</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 2 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 2 }}>
             {SAFETY_POINTS.map(({ title, body }) => (
-              <div key={title} style={{
-                padding: '36px 32px',
-                border: '1px solid var(--border)',
-                background: 'var(--bg)',
-              }}>
+              <div key={title} style={{ padding: '36px 32px', border: '1px solid var(--border)', background: 'var(--bg)' }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }}/>
                 </div>
@@ -449,26 +355,16 @@ export default function HomePage() {
       </section>
 
       {/* ── Technology ── */}
-      <section id="tech" style={{ padding: '100px 40px', borderTop: '1px solid var(--border)' }}>
+      <section id="tech" className="section-pad" style={{ borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 64 }}>
             <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>TECHNOLOGY</div>
-            <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-              Full stack, open architecture
-            </h2>
+            <h2 style={{ fontSize: 40, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15 }}>Full stack, open architecture</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 2, marginBottom: 60 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 2, marginBottom: 60 }}>
             {TECH_STACK.map(({ name, role, detail }) => (
-              <div key={name} style={{
-                padding: '32px',
-                border: '1px solid var(--border)',
-                background: 'var(--surface)',
-                transition: 'border-color 0.2s',
-              }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
-              >
+              <div key={name} style={{ padding: '32px', border: '1px solid var(--border)', background: 'var(--surface)', transition: 'border-color 0.2s' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-3)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
                 <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.12em', marginBottom: 10 }}>{role.toUpperCase()}</div>
                 <div style={{ fontSize: 20, fontWeight: 500, color: 'var(--text)', marginBottom: 12 }}>{name}</div>
                 <div style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.7 }}>{detail}</div>
@@ -476,14 +372,9 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Architecture diagram text */}
-          <div style={{
-            padding: '40px',
-            border: '1px solid var(--border)', borderRadius: 12,
-            background: 'var(--surface)',
-          }}>
+          <div style={{ padding: '40px', border: '1px solid var(--border)', borderRadius: 12, background: 'var(--surface)' }}>
             <div className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em', marginBottom: 24 }}>ARCHITECTURE FLOW</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
+            <div className="tech-flow" style={{ display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
               {[
                 { label: 'Webcam', sub: 'OS capture' },
                 { label: 'Canvas', sub: 'JPEG frame' },
@@ -492,7 +383,6 @@ export default function HomePage() {
                 { label: 'Gaze Engine', sub: 'yaw + pitch + EAR' },
                 { label: 'Score', sub: '0–100 rolling' },
                 { label: 'React UI', sub: 'live display' },
-                { label: 'Supabase', sub: 'on save only' },
               ].map(({ label, sub }, i, arr) => (
                 <div key={label} style={{ display: 'flex', alignItems: 'center' }}>
                   <div style={{ textAlign: 'center', padding: '12px 16px' }}>
@@ -500,7 +390,7 @@ export default function HomePage() {
                     <div className="mono" style={{ fontSize: 11, color: 'var(--text-4)', marginTop: 4 }}>{sub}</div>
                   </div>
                   {i < arr.length - 1 && (
-                    <div style={{ fontSize: 18, color: 'var(--text-4)', padding: '0 4px' }}>→</div>
+                    <div className="tech-arrow" style={{ fontSize: 18, color: 'var(--text-4)', padding: '0 4px' }}>→</div>
                   )}
                 </div>
               ))}
@@ -510,101 +400,83 @@ export default function HomePage() {
       </section>
 
       {/* ── Contact & Connect ── */}
-      <section id="contact" style={{ padding: '100px 40px', borderTop: '1px solid var(--border)', background: 'var(--bg-2)' }}>
+      <section id="contact" className="section-pad" style={{ borderTop: '1px solid var(--border)', background: 'var(--bg-2)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 60 }}>
           
-          {/* Left: Info & Socials */}
-          <div style={{ flex: '1 1 400px' }}>
+          <div style={{ flex: '1 1 300px' }}>
             <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 16 }}>CONNECT</div>
-            <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 20 }}>
+            <h2 style={{ fontSize: 40, fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: 20 }}>
               Get in touch
             </h2>
-            <p style={{ fontSize: 17, color: 'var(--text-3)', lineHeight: 1.7, marginBottom: 40 }}>
+            <p style={{ fontSize: 16, color: 'var(--text-3)', lineHeight: 1.7, marginBottom: 40 }}>
               Have questions about the architecture? Found a bug? Just want to connect? Send a message or reach out on my socials.
             </p>
 
-            {/* Social Pills */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
               {[
                 { icon: <LinkedinIcon />, label: "LinkedIn", link: "https://www.linkedin.com/in/nischayrt/" },
                 { icon: <GithubIcon />, label: "GitHub", link: "https://github.com/NischayRT" },
                 { icon: <CodeIcon />, label: "LeetCode", link: "https://leetcode.com/u/user0322sl/" },
                 { icon: <CodeIcon />, label: "CodeChef", link: "https://www.codechef.com/users/nischayreddy" },
-                { icon: <LinkIcon />, label: "Portfolio", link: "http://nischay-reddy.vercel.app/" },
-              ].map((pill) => (
-                <a key={pill.label} href={pill.link} target="_blank" rel="noreferrer" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '10px 16px', borderRadius: 30,
-                  background: 'var(--surface)', border: '1px solid var(--border)',
-                  color: 'var(--text)', textDecoration: 'none', fontSize: 14, fontWeight: 500,
-                  transition: 'all 0.2s',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text)' }}
-                >
-                  {pill.icon}
-                  {pill.label}
-                </a>
-              ))}
+                { icon: null, label: "Portfolio", link: "http://nischay-reddy.vercel.app/" },
+              ].map((pill) => {
+                const isPortfolio = pill.label === 'Portfolio';
+
+                return (
+                  <a key={pill.label} href={pill.link} target="_blank" rel="noreferrer" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: isPortfolio ? '10px 20px' : '10px 16px', borderRadius: 30,
+                    background: isPortfolio ? 'var(--accent)' : 'var(--surface)', 
+                    border: `1px solid ${isPortfolio ? 'var(--accent)' : 'var(--border)'}`,
+                    color: isPortfolio ? 'var(--bg)' : 'var(--text)', 
+                    textDecoration: 'none', fontSize: 14, fontWeight: isPortfolio ? 600 : 500,
+                    boxShadow: isPortfolio ? '0 0 20px var(--accent-dim)' : 'none',
+                    transition: 'all 0.2s',
+                  }}
+                    onMouseEnter={e => { 
+                      if(isPortfolio) { 
+                        e.currentTarget.style.transform = 'translateY(-2px)'; 
+                        e.currentTarget.style.boxShadow = '0 6px 24px var(--accent-dim)'; 
+                      } else { 
+                        e.currentTarget.style.borderColor = 'var(--accent)'; 
+                        e.currentTarget.style.color = 'var(--accent)';
+                      }
+                    }}
+                    onMouseLeave={e => { 
+                      if(isPortfolio) { 
+                        e.currentTarget.style.transform = 'translateY(0)'; 
+                        e.currentTarget.style.boxShadow = '0 0 20px var(--accent-dim)'; 
+                      } else { 
+                        e.currentTarget.style.borderColor = 'var(--border)'; 
+                        e.currentTarget.style.color = 'var(--text)';
+                      }
+                    }}
+                  >
+                    {isPortfolio ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                      </svg>
+                    ) : pill.icon}
+                    {pill.label}
+                  </a>
+                )
+              })}
             </div>
           </div>
 
-          {/* Right: Contact Form */}
-          <div style={{ flex: '1 1 400px' }}>
+          <div style={{ flex: '1 1 300px' }}>
             <form onSubmit={handleContactSubmit} style={{
               display: 'flex', flexDirection: 'column', gap: 16,
               padding: '36px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16
             }}>
               <div style={{ fontSize: 18, fontWeight: 500, color: 'var(--text)', marginBottom: 8 }}>Send a Message</div>
-              
-              <input 
-                type="text" 
-                placeholder="Name" 
-                required 
-                value={formData.name}
-                onChange={e => setFormData({ ...formData, name: e.target.value })}
-                style={{
-                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)',
-                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
-                }} 
-              />
-              
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                required 
-                value={formData.email}
-                onChange={e => setFormData({ ...formData, email: e.target.value })}
-                style={{
-                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)',
-                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
-                }} 
-              />
-              
-              <textarea 
-                placeholder="Message" 
-                required 
-                rows="4"
-                value={formData.message}
-                onChange={e => setFormData({ ...formData, message: e.target.value })}
-                style={{
-                  width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)', resize: 'vertical',
-                  border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none'
-                }} 
-              />
-              
-              <button 
-                type="submit" 
-                disabled={formStatus === 'submitting'}
-                style={{
-                  padding: '16px', borderRadius: 8, fontSize: 15, marginTop: 8, cursor: formStatus === 'submitting' ? 'default' : 'pointer',
-                  background: 'var(--accent)', color: 'var(--bg)', fontWeight: 600, letterSpacing: '0.08em',
-                  border: 'none', transition: 'opacity 0.2s', opacity: formStatus === 'submitting' ? 0.7 : 1
-                }}
-              >
+              <input type="text" placeholder="Name" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} style={{ width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none' }} />
+              <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} style={{ width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none' }} />
+              <textarea placeholder="Message" required rows="4" value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })} style={{ width: '100%', padding: '14px 16px', borderRadius: 8, background: 'var(--bg-3)', resize: 'vertical', border: '1px solid var(--border)', color: 'var(--text)', fontSize: 15, fontFamily: 'inherit', outline: 'none' }} />
+              <button type="submit" disabled={formStatus === 'submitting'} style={{ padding: '16px', borderRadius: 8, fontSize: 15, marginTop: 8, cursor: formStatus === 'submitting' ? 'default' : 'pointer', background: 'var(--accent)', color: 'var(--bg)', fontWeight: 600, letterSpacing: '0.08em', border: 'none', transition: 'opacity 0.2s', opacity: formStatus === 'submitting' ? 0.7 : 1 }}>
                 {formStatus === 'submitting' ? 'SENDING...' : 'SEND MESSAGE'}
               </button>
-
               {formStatus === 'success' && <div style={{ fontSize: 13, color: 'var(--accent)', textAlign: 'center', marginTop: 4 }}>✓ Message sent successfully!</div>}
               {formStatus === 'error' && <div style={{ fontSize: 13, color: 'var(--red)', textAlign: 'center', marginTop: 4 }}>Failed to send. Please try again later.</div>}
             </form>
@@ -614,39 +486,48 @@ export default function HomePage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer style={{
-        borderTop: '1px solid var(--border)',
-        padding: '40px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        flexWrap: 'wrap', gap: 20,
+      <footer className="footer-pad" style={{
+        borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 22, height: 22, borderRadius: 6,
-            border: '1px solid var(--accent)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
+          <div style={{ width: 22, height: 22, borderRadius: 6, border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }}/>
           </div>
-          <span className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em' }}>Focusguard</span>
+          <span className="mono" style={{ fontSize: 12, color: 'var(--text-4)', letterSpacing: '0.12em' }}>Drsti</span>
         </div>
-        <div style={{ fontSize: 13, color: 'var(--text-4)' }}>
-          Built by Nischay Reddy Thigulla · {new Date().getFullYear()}
-        </div>
+        <div style={{ fontSize: 13, color: 'var(--text-4)' }}>Built by Nischay Reddy Thigulla · {new Date().getFullYear()}</div>
         <div style={{ display: 'flex', gap: 24 }}>
-          <a href="https://github.com/NischayRT/focusguard" target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }}
-            onMouseEnter={e => e.target.style.color = 'var(--text)'}
-            onMouseLeave={e => e.target.style.color = 'var(--text-4)'}
-          >GitHub</a>
+          <a href="https://github.com/NischayRT/Drsti" target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = 'var(--text)'} onMouseLeave={e => e.target.style.color = 'var(--text-4)'}>GitHub</a>
           {['Privacy', 'Contact'].map(l => (
-            <a key={l} href={l === 'Contact' ? '#contact' : '#'} style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--text)'}
-              onMouseLeave={e => e.target.style.color = 'var(--text-4)'}
-            >{l}</a>
+            <a key={l} href={l === 'Contact' ? '#contact' : '#'} style={{ fontSize: 13, color: 'var(--text-4)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = 'var(--text)'} onMouseLeave={e => e.target.style.color = 'var(--text-4)'}>{l}</a>
           ))}
         </div>
       </footer>
 
+      {/* ── Global Mobile Responsive Overrides ── */}
+      <style>{`
+        .section-pad { padding: 100px 40px; }
+        .hero-pad { padding: 120px 40px 80px; }
+        .nav-pad { padding: 0 40px; }
+        .footer-pad { padding: 40px; }
+
+        @media (max-width: 768px) {
+          .section-pad { padding: 60px 20px !important; }
+          .hero-pad { padding: 100px 20px 60px !important; }
+          .nav-pad { padding: 0 20px !important; }
+          .footer-pad { padding: 30px 20px !important; flex-direction: column; align-items: flex-start !important; gap: 20px; }
+          
+          .hide-on-mobile { display: none !important; }
+          .flex-col-mobile { flex-direction: column !important; width: 100%; }
+          .flex-col-mobile > a { width: 100%; justify-content: center; }
+          
+          .grid-2 { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .stat-row { flex-direction: column !important; gap: 30px !important; padding: 24px !important; }
+          
+          .tech-flow { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+          .tech-arrow { transform: rotate(90deg); margin: 6px 0; }
+        }
+      `}</style>
     </div>
   )
 }
